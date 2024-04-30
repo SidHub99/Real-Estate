@@ -1,0 +1,79 @@
+@import '../../Scss files/responsiveness.scss';
+
+
+.home{
+    display: flex;
+    height: 100vh;
+    .text{
+        flex:3;
+        display: flex;   
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        .headers{
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            padding-right: 100px;
+            font-family: sans-serif;
+            // @include sm{
+            //     justify-content: flex-start;
+            // }
+            @include md{
+                padding: 0;
+            }
+            @include la{
+                font-size: 20px;
+            }
+            // position: relative;
+            // margin-left: -150px;
+            // h1{
+            //     font-family: 'Times New Roman', Times, serif;
+            // }
+            // // gap: -200px;
+            // display: flex;
+            // flex-direction: column;
+            .stats{
+                display: flex;
+                justify-content: space-around;
+                @include sm{    
+                    display: none;
+                }
+                
+                h1{
+                    font-size: 36px;
+                    @include la{
+                        font-size: 32px;
+                    }
+                }
+                h2{
+                    font-size: 20px;
+                    font-weight: 300;
+                }
+        }
+
+        
+        }
+
+    }
+    .image{
+        flex:2;
+        position: relative;
+        background-color: #fcf5f3;
+        display: flex;
+        align-items: center;
+       img{
+        width: 110%;
+        position: absolute;
+        right: 0;
+
+        @include la{
+            width: 105%;
+        }
+       }
+       @include md{
+        display: none;
+       }
+    }
+}

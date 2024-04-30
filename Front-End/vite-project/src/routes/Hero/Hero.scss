@@ -1,0 +1,91 @@
+@import '../../Scss files/responsiveness.scss';
+.hero{
+    
+    .types{
+        @include sm{
+            margin-bottom: 5px;
+        }
+       button{
+        padding: 16px 36px;
+        border: 1px solid #999;
+        cursor: pointer;
+        border-bottom: none;
+
+        &.active{
+         background-color: black;
+         color: white;
+        }
+        &:first-child{
+            border-top-left-radius: 5px;
+            border-right: none;
+            @include sm{
+                border-bottom: 1px solid #999;
+            }
+        }
+        &:last-child{
+            border-top-right-radius: 5px;
+            border-left: none;
+            @include sm{
+                border-bottom: 1px solid #999;
+            }
+        }
+       }
+    }
+    form{
+        display: flex;
+        border: 1px solid #999;
+        justify-content: space-between;
+        height: 64px;
+        // gap: 2px;
+        @include sm{
+            flex-direction: column;
+            border: none;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* WebKit browsers */
+    margin: 0; /* Remove margin */
+}
+input[type="number"] {
+    appearance: textfield; /* Other browsers */
+}
+        input{
+            
+            padding: 0px 10px;
+            border: none;
+            width: 190px;
+            @include la{
+                padding: 0px 5px;
+                &:nth-child(2),&:nth-child(3){
+                    width:140px;
+                }   
+            }
+            
+            @include md{
+                width: auto;
+                &:nth-child(2),&:nth-child(3){
+                    width:auto;
+                }
+            }
+            @include sm{
+                padding: 20px;
+                border-bottom: 1px solid #999;
+            }
+            
+        }
+        button{
+            // height: 64px;
+            border: none;
+            // width: 84px;
+            padding: 20px;
+            background-color: #fece51;
+            img{
+                height: 24px;
+                width: 24px;
+            }
+            @include sm{
+               padding: 20px;
+            }
+        }
+    }
+}

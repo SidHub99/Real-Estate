@@ -1,0 +1,31 @@
+@import './responsiveness.scss';
+.layout{
+    margin-left: auto;
+    margin-right: auto;
+    height: 100vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    font-family:'sans-serif';
+    flex-direction: column;
+    max-width: 1366px;
+    @include la{
+        max-width: 1280px;
+    }
+    @include md{
+        max-width: 768px;
+    }
+    @include sm{
+
+        max-width: 640px;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+ 
+}
+.content{
+    
+    flex:1;
+}  
