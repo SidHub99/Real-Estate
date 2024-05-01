@@ -10,6 +10,8 @@
     font-family:'sans-serif';
     flex-direction: column;
     max-width: 1366px;
+    // overflow-y: hidden;
+    // overflow-x: hidden;
     @include la{
         max-width: 1280px;
     }

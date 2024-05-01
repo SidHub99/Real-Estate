@@ -19,7 +19,7 @@ const List = () => {
             </div>
         </div>
         <div className="maps">
-          <Map/>
+          <Map items={data}/>
         </div>
     </div>
   )
