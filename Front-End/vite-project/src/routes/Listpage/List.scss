@@ -1,1 +1,27 @@
-@import '../../Scss files/responsiveness.scss'
+@import "../../Scss files/responsiveness.scss";
+
+.List-page{
+    display: flex;
+    gap: 5px;
+    
+    .list{
+        flex:3;
+    }
+    .wrapper{
+        padding-right: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        height: 100%;
+        // overflow-y: scroll;
+       
+    }
+    .maps{
+        flex:2;
+        width: 100%;
+        height: 100%;
+        background-color:#fcf5f3;
+        height:100vh;
+    }
+
+}
