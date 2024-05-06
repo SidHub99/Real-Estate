@@ -174,7 +174,7 @@
         flex: 2;
         background-color: #fcf5f3;
         height: 100%;
-        overflow-y: scroll;
+        
   
     
         @include md {
@@ -285,16 +285,4 @@
         }
         
       }
-      ::-webkit-scrollbar{
-        width: 10px;
-        }
-        ::-webkit-scrollbar-thumb{
-            background-color: lightgray;
-            visibility: visible;
-        }
-        ::-webkit-scrollbar-track{
-            // background: linear-gradient(#642bff,#ff22e6);
-            background-color: #fcf5f3;
-            visibility: hidden;
-        }
 }
