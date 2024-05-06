@@ -1,8 +1,22 @@
 .list{
     display: flex;
-    justify-self: center;
+    justify-content: center;
     gap: 20px;
-    overflow-y: scroll;
+    overflow-y:scroll;
+    height: 90vh;
     flex-direction: column;
-
+    
 }
+::-webkit-scrollbar{
+    width: 10px;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color: lightgray;
+        visibility: visible;
+        size: 10px;
+    }
+    ::-webkit-scrollbar-track{
+        // background: linear-gradient(#642bff,#ff22e6);
+        background-color: #fcf5f3;
+        visibility: hidden;
+    }

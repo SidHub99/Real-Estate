@@ -1,8 +1,20 @@
+@import '../../Scss files/responsiveness.scss';
 .profile{
     display: flex;
     height: 100%;
+    @include md{
+        flex-direction:column;
+        overflow-y: scroll;
+    }
+
     .details{
         flex: 3;
+        padding-bottom: 50px;
+        overflow-y: scroll;
+        @include md{
+            flex: none;
+            height: max-content;
+        }
         .wrapper{
             padding-right: 20px;
             display: flex;
@@ -45,12 +57,17 @@
     }
 }
     .chat{
+        @include md{
+            flex: none;
+            height: max-content;
+        }
         display: flex;
         flex: 2;
         background-color:#fcf5f3;
         height: 100%;
         .wrapper{
             padding:0px 20px;
+            height: 100%;
         }
    
         

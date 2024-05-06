@@ -1,6 +1,7 @@
 import React from 'react'
 import './Profile.scss'
 import Addtolist from '../../components/addtolist/Addtolist'
+import Chat from '../../components/chat/Chat'
 const Profile = () => {
   return (
     <div className='profile'>
@@ -26,15 +27,15 @@ const Profile = () => {
               <button>Create new post</button>
             </div>
             <Addtolist/>
-            <div className="title">
+            {/* <div className="title">
               <h1>Saved List</h1>
             </div>
-            <Addtolist/>
+            <Addtolist/> */}
           </div>
       </div>
       <div className="chat">
         <div className="wrapper">
-
+          <Chat/>
         </div>
       </div>
     </div>
