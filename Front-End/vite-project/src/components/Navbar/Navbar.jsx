@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  // Close the menu when the component mounts
+  
   useEffect(() => {
     setOpen(false);
   }, []);
