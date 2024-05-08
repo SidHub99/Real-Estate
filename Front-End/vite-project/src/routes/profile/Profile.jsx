@@ -2,7 +2,14 @@ import React from 'react'
 import './Profile.scss'
 import Addtolist from '../../components/addtolist/Addtolist'
 import Chat from '../../components/chat/Chat'
+import { useNavigate } from 'react-router-dom'
+
 const Profile = () => {
+  const navigate=useNavigate()
+  const handlelogout=async()=>{
+    const res= await fetch("http://localhost:8800/api/auth/login");
+    localStorage.removeItem("user");
+  }
   return (
     <div className='profile'>
       <div className="details">
@@ -21,6 +28,7 @@ const Profile = () => {
                 Name: <b>Umar Siddiqui</b>
               </span>
               <span>Email: <b>umar@gmail.com</b></span>
+              <button onClick={handlelogout}>Logout</button>
             </div>
             <div className="title">
               <h1>My List</h1>
