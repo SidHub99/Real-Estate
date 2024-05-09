@@ -1,33 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Profile.scss'
 import Addtolist from '../../components/addtolist/Addtolist'
 import Chat from '../../components/chat/Chat'
 import { useNavigate } from 'react-router-dom'
-
+import { AuthContext } from '../../context/Authcontext'
+import { Link } from 'react-router-dom'
 const Profile = () => {
+  const{currentUser,updateUser}=useContext(AuthContext);
   const navigate=useNavigate()
+  
   const handlelogout=async()=>{
     const res= await fetch("http://localhost:8800/api/auth/login");
-    localStorage.removeItem("user");
+    updateUser(null)
+    navigate("/")
   }
   return (
+
     <div className='profile'>
       <div className="details">
           <div className="wrapper">
             <div className="title">
               <h1>User Profile</h1>
-              <button>Update Profile</button>
+              <Link to="/profile/update" ><button>Update Profile</button></Link>
             </div>
             
             <div className="info">
               <span>
                 Avatar: 
-                <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
+                <img src={currentUser.image || "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} alt="" />
               </span>
               <span>
-                Name: <b>Umar Siddiqui</b>
+                Name: <b>{ currentUser.username}</b>
               </span>
-              <span>Email: <b>umar@gmail.com</b></span>
+              <span>Email: <b>{ currentUser.email }</b></span>
               <button onClick={handlelogout}>Logout</button>
             </div>
             <div className="title">

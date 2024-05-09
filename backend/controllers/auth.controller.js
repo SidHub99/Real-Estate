@@ -34,7 +34,8 @@ export const register=async (req,res)=>{
                         const {password:userpassword,...userInfo}=user
                         
                         const token=jwt.sign({
-                            id:user.id
+                            id:user.id,
+                            isAdmin:false,
                         },secretkey)
                         
                         res.cookie("Token", token, {

@@ -1,19 +1,20 @@
 import './login.scss'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import bg from '../../assets/bg.png'
 // import base_url from '../../../../lib/consts.js'
 import { Link,useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/Authcontext'
 
 const Log = () => {
   // return(
   //   <div>hello</div>
   // );
   
+  const {updateUser}=useContext(AuthContext)
   const nav=useNavigate();
   const [isloading,Setisloading]=useState(false);
   const[error,Seterror]=useState("")
   const handlesubmit=async(e)=>{
-
     e.preventDefault();
     Setisloading(true);
     const formdata=new FormData(e.target)
@@ -22,13 +23,14 @@ const Log = () => {
     try{
       const response=await fetch("http://localhost:8800/api/auth/login",{
         method:"POST",
+        credentials: 'include',
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
           username,password
         })
       })
       const data=await response.json();
-      localStorage.setItem("user",JSON.stringify(data.userInfo))
+      updateUser(data.userInfo)
       if(data.success){
         nav("/")
         

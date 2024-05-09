@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Home.scss'
 import bg from '../../assets/bg.png'
 import Hero from '../Hero/Hero'
+import { AuthContext } from '../../context/Authcontext.jsx'
 const Home = () => {
+    const{currentUser}=useContext(AuthContext)
+    console.log(currentUser);
   return (
     <div className='home'>
         <div className="text">
