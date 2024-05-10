@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import prismacl from '../lib/prisma.js';
+
+
 const secretkey= "kf4U4iTkmiO1rKEDe0V8ulqzCudUR09vIwziB/K0uUc="
 export const register=async (req,res)=>{
     try {const{username,email,password}=req.body;

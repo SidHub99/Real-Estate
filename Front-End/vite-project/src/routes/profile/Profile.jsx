@@ -3,8 +3,9 @@ import './Profile.scss'
 import Addtolist from '../../components/addtolist/Addtolist'
 import Chat from '../../components/chat/Chat'
 import { useNavigate } from 'react-router-dom'
+
 import { AuthContext } from '../../context/Authcontext'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom' 
 const Profile = () => {
   const{currentUser,updateUser}=useContext(AuthContext);
   const navigate=useNavigate()
@@ -37,7 +38,7 @@ const Profile = () => {
             </div>
             <div className="title">
               <h1>My List</h1>
-              <button>Create new post</button>
+              <Link to="/addpost"><button>Create new post</button></Link>
             </div>
             <Addtolist/>
             {/* <div className="title">

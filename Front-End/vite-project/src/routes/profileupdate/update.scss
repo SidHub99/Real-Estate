@@ -49,11 +49,11 @@
       justify-content: center;
   
       .avatar{
-        width: 70%;
-        height: 50%;
+        width: 200px;
+        height: 200px;
         border: 1px solid black;
         object-fit: cover;
-        border-radius: 50%;
+        border-radius: 20px;
       }
     }
   }

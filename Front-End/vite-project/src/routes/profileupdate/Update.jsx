@@ -5,7 +5,7 @@ import Upload_images from '../../components/upload/Uplaodimages';
 // import axios from 'axios'
 const Update = () => {
     const{currentUser,updateUser}=useContext(AuthContext);  
-    const [image,setImage]=useState(currentUser.image);
+    const [image,setImage]=useState([]);
   const [error,Seterror]=useState(null)
     const handlesubmit=async(e)=>{
       e.preventDefault();
@@ -20,7 +20,7 @@ const Update = () => {
             'Content-Type': 'application/json',
             
           },
-          body: JSON.stringify({ username, email, password ,image})
+          body: JSON.stringify({ username, email, password ,image:image[0]})
         });
 const data=await res.json();
 updateUser(data);
@@ -64,7 +64,7 @@ updateUser(data);
       </form>
     </div>
     <div className="sideContainer">
-      <img src={image ||"https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} alt="" className="avatar" />
+      <img src={image[0] || currentUser.image ||"https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} alt="" className="avatar" />
       <Upload_images uwConfig={{
         cloudName:"dl0u7efwt",
         uploadPreset:"estate",
@@ -72,7 +72,7 @@ updateUser(data);
         maxImageFileSize:2000000,
         folder:"images"
       }}
-      setImage={setImage}
+      setState={setImage}
       
       />
     </div>

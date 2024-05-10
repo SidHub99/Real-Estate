@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function Upload_images({ uwConfig, setPublicId,setImage }) {
+function Upload_images({ uwConfig, setPublicId,setState }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -32,7 +32,8 @@ function Upload_images({ uwConfig, setPublicId,setImage }) {
         (error, result) => {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
-            setImage(result.info.secure_url)
+            
+            setState(prev=>[...prev,result.info.secure_url])
           }
         }
       );

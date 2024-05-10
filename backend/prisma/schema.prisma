@@ -19,4 +19,49 @@ model user{
   password String
   image String?
   createdAt DateTime @default(now())
+  posts Post[]
+}
+model Post{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String 
+  images String[]
+  address String
+  city String
+  bedroom Int
+  bathroom Int
+  lat Int
+  long Int
+  price Int
+  type Type
+  property Property
+  userId String @db.ObjectId
+  author user @relation(fields: [userId],references: [id]) 
+  createdAt DateTime @default(now())
+  postDetail PostDetail?
+}
+model PostDetail{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  desc String
+  utils String
+  pet String
+  income String
+  size Int
+  school Int
+  bus Int
+  resturant Int
+  post Post @relation(fields: [postId],references: [id])
+  postId String @db.ObjectId @unique
+}
+
+
+enum Type{
+  buy
+  rent
+}
+enum Property{
+  apartment
+  house
+  condo
+  land
+
 }
