@@ -12,6 +12,7 @@ const Addpost = () => {
   const {currentUser,updateUser}=useContext(AuthContext)
     const [value,Setvalue]=useState('');
     const [images,Setimages]=useState([]);
+
     const [error,Seterror]=useState('')
     const handlesubmit=async(e)=>{
       e.preventDefault()
@@ -35,8 +36,8 @@ const Addpost = () => {
               bathroom: parseInt(inputs.bathroom),
               type: inputs.type,
               property: inputs.property,
-              lat: parseInt(inputs.latitude),
-              long: parseInt(inputs.longitude),
+              lat: inputs.latitude,
+              long: inputs.longitude,
               images: images
             },
             postDetail: {

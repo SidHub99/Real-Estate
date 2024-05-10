@@ -29,8 +29,8 @@ model Post{
   city String
   bedroom Int
   bathroom Int
-  lat Int
-  long Int
+  lat String
+  long String
   price Int
   type Type
   property Property

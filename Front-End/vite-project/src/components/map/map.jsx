@@ -5,8 +5,14 @@ import "./map.scss"
 import PIn from '../pin/PIn'
 const Map = ({items}) => {
   // 33.6995, 73.0363
+ 
   return (
-    <MapContainer center={[52.4797, -1.90269]} className="map" zoom={7} scrollWheelZoom={false}>
+    <MapContainer 
+     center={
+      items.length === 1
+        ? [items[0].lat, items[0].long]
+        : [52.4797, -1.90269]
+    } className="map" zoom={7} scrollWheelZoom={false}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -20,5 +26,6 @@ const Map = ({items}) => {
   
   )
 }
+
 
 export default Map

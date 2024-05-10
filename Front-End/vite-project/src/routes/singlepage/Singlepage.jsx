@@ -15,33 +15,38 @@ import msg from '../../assets/chat.png'
 import resturant from '../../assets/restaurant.png'
 import save from '../../assets/save.png'
 import Map from '../../components/map/map'
+import { useLoaderData } from 'react-router-dom'
+import DOMpurify from 'dompurify'
 
 const Singlepage = () => {
+  const post=useLoaderData();
+  const dummyimages=["https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2","https://images.pexels.com/photos/1428348/pexels-photo-1428348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2","https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2","https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"]
+  console.log(post)
   return (
     <div className="singlepage">
         
     <div className='details'>
       <div className="wrapper">
-        <Slider images={singlePostData.images}/>
+        <Slider images={post.images?post.images :dummyimages}/>
         <div className="info">
           <div className="top">
               <div className="post">
-                <h1>{singlePostData.title}</h1>
+                <h1>{post.title}</h1>
                 <div className="address">
                   <img src={pin} alt="" />
-                  <span>{singlePostData.address}</span>
+                  <span>{post.address}</span>
                 </div>
                 <div className="price">
-                  <span>${singlePostData.price}</span>
+                  <span>${post.price}</span>
                 </div>
               </div>
               <div className="user">
-                <img src={userData.image} alt="" />
-                <span>{userData.name}</span>
+                <img src={post.author.image} alt="" />
+                <span>{post.author.username}</span>
               </div>
           </div>
-          <div className="bottom">
-            <span>{singlePostData.description}</span>
+          <div className="bottom" dangerouslySetInnerHTML={{__html:DOMpurify.sanitize(post.postDetail.desc)}}>
+            
           </div>
         </div>
       </div>
@@ -148,21 +153,32 @@ const Singlepage = () => {
               <img src={utility} alt="" />
               <div className="featureText">
                 <span>Utilities</span>
-                <p>Renter is responsible</p>
+                {
+                  post.postDetail.utils ==='owner' ?
+                  <p>Owner is responsible</p>:
+                  <p>Tenant is responsible</p>
+
+                }
               </div>
             </div>
             <div className="feature">
               <img src={pet} alt="" />
               <div className="featureText">
                 <span>Pet Policy</span>
-                <p>Pets Allowed</p>
+                {
+                  post.postDetail.pet ==='allowed' ?
+                  <p>Pets Allowed</p>:
+                  <p>Pets Not Allowed</p>
+        
+                }
+                
               </div>
             </div>
             <div className="feature">
               <img src={fee} alt="" />
               <div className="featureText">
-                <span>Property Fees</span>
-                <p>Must have 3x the rent in total household income</p>
+                <span>Income Policy</span>
+                <p>{post.postDetail.income}</p>
               </div>
             </div>
           </div>
@@ -170,15 +186,15 @@ const Singlepage = () => {
           <div className="sizes">
             <div className="size">
               <img src={size} alt="" />
-              <span>80 sqft</span>
+              <span>{post.postDetail.size} sqft</span>
             </div>
             <div className="size">
               <img src={bed} alt="" />
-              <span>2 beds</span>
+              <span>{post.bedroom} beds</span>
             </div>
             <div className="size">
               <img src={bath} alt="" />
-              <span>1 bathroom</span>
+              <span>{post.bathroom} bathroom</span>
             </div>
           </div>
           <p className="title">Nearby Places</p>
@@ -187,27 +203,27 @@ const Singlepage = () => {
               <img src={school} alt="" />
               <div className="featureText">
                 <span>School</span>
-                <p>250m away</p>
+                <p>{post.postDetail.school} km away</p>
               </div>
             </div>
             <div className="feature">
               <img src={bus} alt="" />
               <div className="featureText">
                 <span>Bus Stop</span>
-                <p>100m away</p>
+                <p>{post.postDetail.bus} km away</p>
               </div>
             </div>
             <div className="feature">
               <img src={resturant} alt="" />
               <div className="featureText">
                 <span>Restaurant</span>
-                <p>200m away</p>
+                <p>{post.postDetail.bus} km away</p>
               </div>
             </div>
           </div>
           <p className="title">Location</p>
           <div className="mapContainer">
-            <Map items={[singlePostData]} />
+            <Map items={[post]} />
           </div>
           <div className="buttons">
             <button>

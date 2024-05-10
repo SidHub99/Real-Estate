@@ -11,7 +11,7 @@ const Card = ({item}) => {
     <div className='card'>
 
       <Link to={`/${item.id}`} className='image-con'>
-        <img src={item.image} alt="" />
+        <img src={item.images[0]} alt="" />
 
       </Link>
      <div className="text-con">

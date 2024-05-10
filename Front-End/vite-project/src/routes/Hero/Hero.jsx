@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import './Hero.scss'
 import search from '../../assets/search.png'
-
-
+import {Link} from 'react-router-dom'
 const Hero = () => {
     const type=['buy','rent']
+    const handlechange=(e)=>{
+        Setquery((prev)=>({...prev,[e.target.name]:e.target.value }))
+    }
     const [query,Setquery]=useState({
         type:"buy",
-        location:"",
+        city:"",
         minprice:0,
         maxprice:0
     })
@@ -25,12 +27,13 @@ const Hero = () => {
             }
         </div>
             <form>
-                <input type="text" name="location" placeholder='Location' />
-                <input type="number" name="minprice" placeholder='Minimum price' />
-                <input type="number" name="maxprice" placeholder='Max Price' />
-                <button>
+                <input type="text" name="city" placeholder='City' onChange={handlechange} />
+                <input type="number" name="minprice" min={0} placeholder='Minimum price' onChange={handlechange} />
+                <input type="number" name="maxprice" min={0} placeholder='Max Price' onChange={handlechange}/>
+               <Link to={`/list?type=${query.type}&city=${query.city}&minprice=${query.minprice}&maxprice=${query.maxprice}`}>
+               <button>
                     <img src={search} alt="" />
-                </button>
+                </button></Link>
             </form>
       
     </div>

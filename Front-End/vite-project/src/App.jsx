@@ -9,6 +9,7 @@ import Profile from './routes/profile/Profile';
 import Register from './routes/register/Register';
 import Update from './routes/profileupdate/Update';
 import Addpost from './routes/addpost/Addpost';
+import { listLoader, postLoader } from './libs/loader/Postloader';
 function App() {
   const router = createBrowserRouter([
     {
@@ -21,10 +22,12 @@ function App() {
         },
         {
           path:"/list",
-          element:<List/>
+          element:<List/>,
+          loader:listLoader
         },
         {
-          path:"/singlepage",
+          path:"/:id",
+          loader:postLoader,
           element:<Singlepage/>
         },
 

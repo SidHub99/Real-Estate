@@ -2,9 +2,27 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import prismacl from '../lib/prisma.js';
 export const getPosts=async(req,res)=>{
+    const query=req.query;
+    // console.log(query)
     try{
-        const posts=await prismacl.post.findMany()
-        res.status(200).json(posts)
+        const posts=await prismacl.post.findMany({
+            where:{
+        city:query.city || undefined,
+        type:query.type || undefined,
+        property:query.property || undefined,
+        bedroom:parseInt(query.bedroom) || undefined,
+        bathroom:query.bathroom || undefined,
+        price:{
+            gte: parseInt(query.minprice) || 0,
+            lte: parseInt(query.maxprice) || 100000000,
+        }
+
+            }
+        })
+        setTimeout(()=>{
+
+            res.status(200).json(posts)
+        },2000)
     }   
     catch(e){
         console.log(e)
