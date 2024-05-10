@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 const Addpost = () => {
   const nav=useNavigate()
   const {currentUser,updateUser}=useContext(AuthContext)
-    const {value,Setvalue}=useState('');
+    const [value,Setvalue]=useState('');
     const [images,Setimages]=useState([]);
     const [error,Seterror]=useState('')
     const handlesubmit=async(e)=>{
@@ -35,25 +35,25 @@ const Addpost = () => {
               bathroom: parseInt(inputs.bathroom),
               type: inputs.type,
               property: inputs.property,
-              lat: inputs.latitude,
-              long: inputs.longitude,
+              lat: parseInt(inputs.latitude),
+              long: parseInt(inputs.longitude),
               images: images
             },
             postDetail: {
               desc: value,
-              utils: inputs.utlities,
+              utils: inputs.utilities,
               pet: inputs.pet,
               income: inputs.income,
               size: parseInt(inputs.size),
               school: parseInt(inputs.school),
               bus: parseInt(inputs.bus),
-              resturant: parseInt(inputs.resturant),
-              post: parseInt(inputs.post)
+              resturant: parseInt(inputs.restaurant),
+              
             }
           })
         });
         const res=await response.json();
-        console.log(res.id)
+        
         
         nav('/'+res.id)
       }
