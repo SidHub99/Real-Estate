@@ -16,17 +16,15 @@ const Chat = ({chats}) => {
             })
             const data=await res.json();
             console.log(data)
+            console.log(data.chat)
             console.log(reciever)
-           Setchat({...data,reciever})
-           console.log(chat)
-
-           
+           Setchat({...data.chat,reciever})
         }catch(e){
             console.log(e)
         }
     }
    
-    
+    console.log(chat)
     
     // useEffect(()=>{
     //     console.log(chat)
@@ -41,17 +39,20 @@ const Chat = ({chats}) => {
     //             console.log(error);
     //         });
     // }
+   
+    
 
   return (
     
     <div className='chat'>
       <div className="messages">
         <h1>Messages</h1>
-       {
+       {chats &&
         chats.map((c)=>(
             <div className="message" key={c.id} style={{ 
                 backgroundColor: c.seenby.includes(currentUser.id)? 'white' : "gray"
             }} onClick={()=>handlechats(c.id,c.reciever)}>
+            
             <img src={c.reciever.image || "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} alt="" />
             <span>{c.reciever.username}</span>
             <p>{c.lastmessage}</p>
@@ -73,7 +74,7 @@ const Chat = ({chats}) => {
                    chat && 
                     chat.message.map((msg)=>(
                         <div className="chatmsg own" key={msg.id}>
-                        <p>{msg.chat.text}</p>
+                        <p>{msg.text}</p>
                         <span>{format(msg.createdAt)}</span>
     
                     </div>   
