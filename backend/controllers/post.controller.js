@@ -1,7 +1,11 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import prismacl from '../lib/prisma.js';
+
+
+const secretkey= "kf4U4iTkmiO1rKEDe0V8ulqzCudUR09vIwziB/K0uUc="
 export const getPosts=async(req,res)=>{
+
     const query=req.query;
     // console.log(query)
     try{
@@ -45,7 +49,24 @@ export const getPost=async(req,res)=>{
                 }
             }
         })
-        res.status(200).json(post)
+        const token = req.cookies?.Token;
+
+        if (token) {
+          jwt.verify(token,secretkey, async (err, payload) => {
+            if (!err) {
+              const saved = await prismacl.savedPost.findUnique({
+                where: {
+                  userId_postId: {
+                    postId: id,
+                    userId: payload.id,
+                  },
+                },
+              });
+              res.status(200).json({ ...post, isSaved: saved ? true : false });
+            }
+          });
+        }
+        res.status(200).json({ ...post, isSaved: false });
     }
     catch(e){
         console.log(e)

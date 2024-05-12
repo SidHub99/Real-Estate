@@ -12,7 +12,6 @@ const Card = ({item}) => {
 
       <Link to={`/${item.id}`} className='image-con'>
         <img src={item.images[0]} alt="" />
-
       </Link>
      <div className="text-con">
       <h2 className="title">

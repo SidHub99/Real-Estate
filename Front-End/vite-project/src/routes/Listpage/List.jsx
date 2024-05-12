@@ -7,6 +7,7 @@ import Map from '../../components/map/map'
 import { Await, useLoaderData } from 'react-router-dom'
 const List = () => {
     const data=useLoaderData()
+    console.log(data)
   return (
     <div className='List-page'>
         <div className="list">

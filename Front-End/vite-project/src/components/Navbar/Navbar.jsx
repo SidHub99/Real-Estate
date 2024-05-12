@@ -21,7 +21,7 @@ const Navbar = () => {
         <span>LamaEstate</span>
       </a>
       <a href="/">Home</a>
-      <a href="/">About</a>
+      <a href="/list">Property Listings</a>
       <a href="/">Contact</a>
       <a href="/">Agents</a>
     </div>

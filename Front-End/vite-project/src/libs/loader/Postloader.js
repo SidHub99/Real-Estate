@@ -18,3 +18,24 @@ export const listLoader = async ({ request, params }) => {
 // postResponse:postPromise
 //  })
 }
+export const profilePageLoader = async () => {
+ 
+try{
+ const res=await fetch("http://localhost:8800/api/user/profileposts",
+    {
+        method:"get",
+        credentials:"include"
+
+    }
+ );
+ return res;
+//  const postPromise= await res.json();
+//  return postPromise;
+}
+ catch(e)
+ {
+    console.log(e)
+
+    return e
+ }
+}

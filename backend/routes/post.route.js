@@ -1,7 +1,7 @@
 import express from 'express'
 
 import  {vertoken}  from '../middleware/verifytoken.js';
-import { addPosts, deletePosts, getPost, getPosts, updatePosts } from '../controllers/post.controller.js';
+import { addPosts,deletePosts, getPost, getPosts, updatePosts } from '../controllers/post.controller.js';
 const router=express.Router();
 
 router.get('/',getPosts);

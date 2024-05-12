@@ -2,11 +2,13 @@ import React, { useContext, useEffect } from 'react'
 import './Profile.scss'
 import Addtolist from '../../components/addtolist/Addtolist'
 import Chat from '../../components/chat/Chat'
-import { useNavigate } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '../../context/Authcontext'
 import { Link } from 'react-router-dom' 
 const Profile = () => {
+  const data=useLoaderData()
+  console.log(data)
   const{currentUser,updateUser}=useContext(AuthContext);
   const navigate=useNavigate()
   
@@ -36,15 +38,21 @@ const Profile = () => {
               <span>Email: <b>{ currentUser.email }</b></span>
               <button onClick={handlelogout}>Logout</button>
             </div>
+           <div className="posts_show">
+            <div className="myposts">
             <div className="title">
               <h1>My List</h1>
               <Link to="/addpost"><button>Create new post</button></Link>
             </div>
-            <Addtolist/>
-            {/* <div className="title">
+            <Addtolist post={data.myposts}/>
+            </div>
+            <div className="saved_posts">
+            <div className="title">
               <h1>Saved List</h1>
             </div>
-            <Addtolist/> */}
+            <Addtolist post={data.savedPost}/>
+            </div>
+           </div>
           </div>
       </div>
       <div className="chat">

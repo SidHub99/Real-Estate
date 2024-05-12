@@ -39,6 +39,7 @@
             }
         .info{
             display: flex;
+            
             flex-direction: column;
             gap: 20px;
             span{
@@ -62,6 +63,22 @@
                 object-fit: cover;
 
             }
+
+        }
+        .posts_show{
+            
+                height: 90vh;
+                display:flex ;
+                flex-direction: column;
+                
+                .myposts{
+                    flex: 1;
+                    
+                }
+                .saved_posts{
+                    flex: 1;                  
+                    
+                }
         }
     }
 }
