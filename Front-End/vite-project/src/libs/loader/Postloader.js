@@ -21,21 +21,26 @@ export const listLoader = async ({ request, params }) => {
 export const profilePageLoader = async () => {
  
 try{
- const res=await fetch("http://localhost:8800/api/user/profileposts",
+ const profilepost=await fetch("http://localhost:8800/api/user/profileposts",
     {
         method:"get",
         credentials:"include"
-
     }
  );
- return res;
-//  const postPromise= await res.json();
-//  return postPromise;
+ const chat=await fetch("http://localhost:8800/api/chat",{
+    method:"get",credentials:"include"
+ })
+const [propost, prochat] = await Promise.all([profilepost.json(), chat.json()]);
+
+
+ return {posts:propost,chats:prochat};
+
 }
  catch(e)
  {
     console.log(e)
-
     return e
  }
 }
+
+

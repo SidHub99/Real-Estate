@@ -8,7 +8,8 @@ import { AuthContext } from '../../context/Authcontext'
 import { Link } from 'react-router-dom' 
 const Profile = () => {
   const data=useLoaderData()
-  console.log(data)
+  console.log(data.posts)
+  console.log(data.chats)
   const{currentUser,updateUser}=useContext(AuthContext);
   const navigate=useNavigate()
   
@@ -44,20 +45,20 @@ const Profile = () => {
               <h1>My List</h1>
               <Link to="/addpost"><button>Create new post</button></Link>
             </div>
-            <Addtolist post={data.myposts}/>
+            <Addtolist post={data.posts.myposts}/>
             </div>
             <div className="saved_posts">
             <div className="title">
               <h1>Saved List</h1>
             </div>
-            <Addtolist post={data.savedPost}/>
+            <Addtolist post={data.posts.savedPost}/>
             </div>
            </div>
           </div>
       </div>
       <div className="chat">
         <div className="wrapper">
-          <Chat/>
+          <Chat chats={data.chats}/>
         </div>
       </div>
     </div>

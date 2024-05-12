@@ -4,5 +4,5 @@ import {addMessage} from '../controllers/message.controller.js'
 
 const router=express.Router();
 
-router.post('/',vertoken,addMessage);
+router.post('/:chatId',vertoken,addMessage);
 export default router;
