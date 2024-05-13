@@ -3,10 +3,12 @@ import './chat.scss'
 import { AuthContext } from '../../context/Authcontext'
 import {format} from 'timeago.js'
 import { SocketContext } from '../../context/SocketContext'
+import { useNotification } from '../../../Notification'
 
 const Chat = ({chats}) => {
     const [chat,Setchat]=useState(null)
     const messageEndRef=useRef()
+    const decrease=useNotification(state=>state.decrease)
     const {currentUser}=useContext(AuthContext)
     const {socket}=useContext(SocketContext)
     console.log(chats)
@@ -23,7 +25,11 @@ const Chat = ({chats}) => {
             console.log(data)
             console.log(data.chat)
             console.log(reciever)
-           Setchat({...data.chat,reciever})
+               if(!data.chat.seenby.includes(currentUser.id)){
+                decrease();
+               }
+            Setchat({...data.chat,reciever})
+
         }catch(e){
             console.log(e)
         }

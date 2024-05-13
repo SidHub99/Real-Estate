@@ -160,3 +160,27 @@ export const profilePosts=async(req,res)=>{
         res.status(500).json({message:"Failed to get Profile posts",success:false})
     }
 }
+export const getNotification=async(req,res)=>{
+    
+    const tokenUserId=req.userId;
+
+    try{
+        const chat=await prismacl.chat.count({
+            where:{
+               userIDs:{
+                hasSome:[tokenUserId]
+               },
+               NOT:{
+                seenby:{
+                    hasSome:[tokenUserId]
+                }
+               }
+            }
+        })
+
+        res.status(200).json(chat)
+    }catch(e){       
+        console.log(e)
+        res.status(500).json({message:"Failed to get Profile posts",success:false})
+    }
+}

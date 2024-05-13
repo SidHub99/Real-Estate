@@ -4,9 +4,15 @@ import menu from '../../assets/menu.png';
 import logo from '../../assets/logo1.png';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/Authcontext';
+import { useNotification } from '../../../Notification';
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const {currentUser}=useContext(AuthContext)
+  const fetch=useNotification(state=>state.fetch)
+  const number=useNotification(state=>state.number)
+  if(currentUser){
+    fetch()
+  }
   
   useEffect(() => {
     setOpen(false);
@@ -34,7 +40,7 @@ const Navbar = () => {
           />
           <span>{currentUser.username}</span>
           <Link to="/profile" className="profile">
-            <div className="notification">3</div>
+            {number > 0 &&<div className="notification">{number}</div>}
             <span>Profile</span>
           </Link>
         </div>
