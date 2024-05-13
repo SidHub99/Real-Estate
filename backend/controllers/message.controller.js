@@ -4,6 +4,7 @@ export const addMessage=async(req,res)=>{
     const chatId=req.params.chatId;
     const userId=req.userId;
     const text=req.body.text
+
     try{
        const chat =await prismacl.chat.findUnique({
         where:{

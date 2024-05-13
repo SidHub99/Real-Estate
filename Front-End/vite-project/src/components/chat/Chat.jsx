@@ -1,13 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './chat.scss'
 import { AuthContext } from '../../context/Authcontext'
 import {format} from 'timeago.js'
+import { SocketContext } from '../../context/SocketContext'
 
 const Chat = ({chats}) => {
     const [chat,Setchat]=useState(null)
+    const messageEndRef=useRef()
     const {currentUser}=useContext(AuthContext)
+    const {socket}=useContext(SocketContext)
     console.log(chats)
-    
+    useEffect(()=>{
+        messageEndRef.current?.scrollIntoView({behavior:"smooth"})
+    },[chat])
     const handlechats=async(id,reciever)=>{
         try{
             const res=await fetch("http://localhost:8800/api/chat/"+id,{
@@ -25,23 +30,60 @@ const Chat = ({chats}) => {
     }
    
     console.log(chat)
-    
-    // useEffect(()=>{
-    //     console.log(chat)
-    // },[chat])
-  
-    // const handlechats=(id,reciever)=>{
-        
-    //         fetch("http://localhost:8800/api/chat/"+id,{
-    //             method:"get",
-    //             credentials:"include"
-    //         }).then(res => res.json()).then(data=>{ Setchat({ ...data, reciever: reciever })}).catch(error => {
-    //             console.log(error);
-    //         });
-    // }
    
     
-
+const handlesubmit=async(e)=>{
+    e.preventDefault();
+    const formdata= new FormData(e.target)
+    const text=formdata.get("text")
+    console.log(text)
+    const response= await fetch("http://localhost:8800/api/message/"+chat.id,{
+        method:"post",
+        headers: {
+            'Content-Type': "application/json"
+          },
+        credentials:"include",
+            body:JSON.stringify({text})
+    })
+    const data=await response.json();
+    console.log(data)
+    console.log(chat)
+    Setchat((prev)=>({...prev,message:[...prev.message,data]}))
+    e.target.reset()
+   
+    socket.emit("sendMessage", {
+        receiverId: chat.reciever.id, 
+        data: data
+    });
+}
+useEffect(()=>{
+    const read=async()=>{
+        try{
+            await fetch('http://localhost:8800/api/chat/read/'+chat.id,{
+                method:"put",
+                credentials:"include",
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+    if(chat && socket){
+        socket.on("getMessage",(data)=>{
+            console.log(data)
+        if(chat.id===data.chatId){
+            Setchat((prev)=>({...prev,message:[...prev.message,data]}))
+            read()
+        }
+        })
+    }
+    return () => {
+        socket.off("getMessage");
+      };
+},[socket,chat])
   return (
     
     <div className='chat'>
@@ -50,7 +92,7 @@ const Chat = ({chats}) => {
        {chats &&
         chats.map((c)=>(
             <div className="message" key={c.id} style={{ 
-                backgroundColor: c.seenby.includes(currentUser.id)? 'white' : "gray"
+                backgroundColor: c.seenby.includes(currentUser.id) || chat?.id===c.id ? 'white' : "gray" 
             }} onClick={()=>handlechats(c.id,c.reciever)}>
             
             <img src={c.reciever.image || "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"} alt="" />
@@ -73,7 +115,11 @@ const Chat = ({chats}) => {
                 {
                    chat && 
                     chat.message.map((msg)=>(
-                        <div className="chatmsg own" key={msg.id}>
+                        
+                        <div className="chatmsg" key={msg.id} style={{
+                                alignSelf: msg.userId === currentUser.id ? "flex-end" : "flex-start",
+                                alignItems: msg.userId === currentUser.id ? "right" : "left"
+                        }}>
                         <p>{msg.text}</p>
                         <span>{format(msg.createdAt)}</span>
     
@@ -81,14 +127,15 @@ const Chat = ({chats}) => {
     
                     ))
                 }
+                <div ref={messageEndRef}></div>
                
                 
            
             </div>
-            <div className="bottom">
-                <textarea placeholder='Enter Message Here ...'></textarea>
+            <form className="bottom" onSubmit={handlesubmit}>
+                <textarea name='text' placeholder='Enter Message Here ...'></textarea>
                 <button>Send</button>
-            </div>
+            </form>
       </div>)}
 
     </div>
